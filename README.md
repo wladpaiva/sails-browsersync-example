@@ -71,7 +71,7 @@ The only problem with this approach is that the changes on your `layout.ejs` won
 	  });
 
 	  grunt.loadNpmTasks('grunt-browser-sync');
-};
+    };
 
    ```
 
