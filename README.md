@@ -21,9 +21,9 @@ npm install
 sails lift     # or node app.js
 ```
 
-The browsersync will open a page using a different port from the sails process. 
+The browsersync will open a page using a different port from the sails process.
 All changes on your `css` files will be reloaded by the browsersync page and all changes on your views will cause a page reload.
-The only problem with this approach is that the changes on your `layout.ejs` won't cause the page reload once when you change a `*.css` or a `*.js` the `watch` task execute the `linkAssets` task, which means that if the `layout.ejs` have been included on autoreload, it would execute a page reload instead a simple css injection. 
+The only problem with this approach is that the changes on your `layout.ejs` won't cause the page reload once when you change a `*.css` or a `*.js` the `watch` task execute the `linkAssets` task, which means that if the `layout.ejs` have been included on autoreload, it would execute a page reload instead a simple css injection.
 
 ### Start from Scratch
 
@@ -51,7 +51,7 @@ The only problem with this approach is that the changes on your `layout.ejs` won
 
    ```javascript
 	module.exports = function (grunt) {
-	
+
 	  grunt.config.set('browserSync', {
 	    dev: {
 	      bsFiles: {
@@ -69,7 +69,7 @@ The only problem with this approach is that the changes on your `layout.ejs` won
 	      }
 	    }
 	  });
-	
+
 	  grunt.loadNpmTasks('grunt-browser-sync');
 };
 
@@ -79,7 +79,7 @@ The only problem with this approach is that the changes on your `layout.ejs` won
 
 	```javascript
 	module.exports = function(grunt) {
-	
+
 	  grunt.config.set('watch', {
 	    assets: {
 	      ...
@@ -91,11 +91,11 @@ The only problem with this approach is that the changes on your `layout.ejs` won
 	        }
 	    }
 	  });
-	
+
 	  grunt.loadNpmTasks('grunt-contrib-watch');
 	};
 	```
-	
+
 7. Edit ```tasks/register/default.js``` and add the browsersync task before the watch task
 
 	```javascript
@@ -108,13 +108,14 @@ The only problem with this approach is that the changes on your `layout.ejs` won
 	  ]);
 	};
 	```
-	
+
 8. Edit ```config/http.js``` and add this middleware there to ensure that the autoreload will be inserted on the page
+**PS:** Make sure you have added the ```connectLivereload``` into the order array.
 
 	```javascript
 	module.exports.http = {
 	  middleware: {
-		
+
 	    connectLivereload: function (req, res, next) {
 	      if (sails.config.environment !== 'production')
 	        require('connect-livereload')({
@@ -122,7 +123,7 @@ The only problem with this approach is that the changes on your `layout.ejs` won
 	        })(req, res, next);
 	      else return next();
 	    },
-	    
+
 	    order: [
 	      'connectLivereload',
 	      ...
@@ -131,8 +132,7 @@ The only problem with this approach is that the changes on your `layout.ejs` won
 	  },
 	  ...
 	};
-	``` 
+	```
 
 
 9. Enjoy it! :)
-
